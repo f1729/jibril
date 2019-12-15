@@ -1,23 +1,37 @@
 import program from 'commander'
 
-import { addWord, deleteWord, test } from './actions';
+import { initStorage, getCurrentCollectionStorage } from './storage'
+
+import { addCollection, addWord, deleteWord, test } from './actions'
 
 program
   .version('0.0.1')
-  .option('--test', 'Test your memory')
+  .option('--test [?collection]', 'Test your memory')
   .option('--add [word] [description]', 'For add a word')
   .option('--delete [word]', 'For delete a word')
   .option('--add-collection [WIP]', 'Flag in progress')
   .parse(process.argv)
 
-if(program.add) {
-  addWord()
-}
-if(program.delete) {
-  deleteWord()
+
+const init = async () => {
+  const { firstTime, defaultStorage } =  await initStorage()
+
+  if(firstTime) await addCollection(defaultStorage)
+
+  const currentCollectionStorage = await getCurrentCollectionStorage(defaultStorage)
+
+
+  if(program.add) {
+    addWord(currentCollectionStorage)
+  }
+
+  if(program.delete) {
+    deleteWord(currentCollectionStorage)
+  }
+
+  if(program.test) {
+    test(currentCollectionStorage)
+  }
 }
 
-if(program.test) {
-  test()
-}
-
+init()
