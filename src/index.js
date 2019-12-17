@@ -2,7 +2,7 @@ import program from 'commander'
 
 import { initStorage, getCurrentCollectionStorage } from './storage'
 
-import { addCollection, addWord, deleteWord, test } from './actions'
+import { addCollection, addWord, deleteWord, autoTest } from './actions'
 
 program
   .version('0.0.1')
@@ -30,7 +30,7 @@ const init = async () => {
   }
 
   if(program.test) {
-    test(currentCollectionStorage)
+    autoTest(currentCollectionStorage)
   }
 }
 

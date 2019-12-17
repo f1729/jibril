@@ -15,14 +15,14 @@ const writeTitle = (title) => {
   ui.log.write('===================================')
 }
 
-export const addWord = async (storage) => {
+export const addWord = async (currentStorage) => {
   writeTitle('Please add your word and description')
 
   const { word } = await askForAWord()
   const { description } = await askForADescription()
 
-  await storage.init()
-  await storage.set(word, description)
+  await currentStorage.init()
+  await currentStorage.set(word, { description, phase: 1 })
 
   // return { word, description }
 }
@@ -35,23 +35,63 @@ export const deleteWord = async (storage) => {
   // return word
 }
 
-export const test = async (storage) => {
+export const test = async (data, currentStorage) => {
   writeTitle('Go to test!')
 
-  await storage.init()
+  await currentStorage.init()
 
-  storage.forEach(async (datum) => {
+  for (let datum of data) {
     ui.log.write(`-> ${datum.key}`)
 
     const { description } = await askForADescription()
 
-    // TODO: Implement technique for improve the memory
-    if (description === datum.value) {
+    if (description === datum.value.description) {
       ui.log.write('Nice!')
+      await currentStorage.set(datum.key, {
+        ...datum.value,
+        phase: datum.value.phase === 3 ? 3 : datum.value.phase + 1,
+        phaseDate: new Date()
+      })
     } else {
-      ui.log.write(`You are wrong, the answer is: ${datum.value}`)
+      ui.log.write(`You are wrong, the answer is: ${datum.value.description}`)
+      await currentStorage.set(datum.key, { description, phase: 1 })
     }
-  })
+  }
+}
+
+export const autoTest = async (storage) => {
+  const getWordsForToday = async (storage) => {
+    const items = []
+    const data = await storage.data()
+
+    const weeksUntilNow = (b) => Math.round((new Date() -b) / 604800000)
+
+    for (let i of data) {
+      const weeks = weeksUntilNow(i.value.phaseDate)
+      switch (i.value.phase) {
+        case 1:
+          items.push(i)
+          break
+        case 2:
+          if(weeks === 1) items.push(i)
+          break
+        case 3:
+          if(weeks === 2) items.push(i)
+          break
+        case 4:
+          if(weeks === 4) items.push(i)
+          break
+        default:
+          break
+      }
+    }
+
+    return items
+  }
+
+  const data = await getWordsForToday(storage)
+
+  test(data, storage)
 }
 
 export const addCollection = async (defaultStorage) => {
