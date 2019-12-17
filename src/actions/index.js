@@ -91,7 +91,11 @@ export const autoTest = async (storage) => {
 
   const data = await getWordsForToday(storage)
 
-  test(data, storage)
+  if (data.length) {
+    test(data, storage)
+  } else {
+    ui.log.write('Wait me a short time, for now u dont have to remember nothing')
+  }
 }
 
 export const addCollection = async (defaultStorage) => {
