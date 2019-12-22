@@ -1,7 +1,9 @@
-import inquirer from 'inquirer'
+import Enquirer from 'enquirer'
+
+const enquirer = new Enquirer()
 
 export const askForADescription = () => {
-  return inquirer.prompt([
+  return enquirer.prompt([
     {
       name: 'description',
       message: 'Insert word\'s description: ',
@@ -11,7 +13,7 @@ export const askForADescription = () => {
 }
 
 export const askForAWord = () => {
-  return inquirer.prompt([
+  return enquirer.prompt([
     {
       name: 'word',
       message: 'Insert your word: ',
@@ -21,7 +23,7 @@ export const askForAWord = () => {
 }
 
 export const askForACollectionName = () => {
-  return inquirer.prompt([
+  return enquirer.prompt([
     {
       name: 'collection',
       message: 'Insert a name for your collection: ',

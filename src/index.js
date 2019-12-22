@@ -20,7 +20,6 @@ const init = async () => {
 
   const currentCollectionStorage = await getCurrentCollectionStorage(defaultStorage)
 
-
   if(program.add) {
     addWord(currentCollectionStorage)
   }
