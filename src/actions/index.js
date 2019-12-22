@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+const Table = require('tty-table')
 
 const {
   askForAWord,
@@ -75,7 +76,7 @@ const autoTest = async (storage) => {
 }
 
 const addCollection = async (defaultStorage) => {
-  const { collection: collectionName } = await  askForACollectionName()
+  const { collection: collectionName } = await askForACollectionName()
 
   const collection = await defaultStorage.get('@jibril-collections')
 
@@ -85,7 +86,7 @@ const addCollection = async (defaultStorage) => {
     return
   }
 
-  await defaultStorage.set('@jibril-collections', [ ...collection, collectionName ])
+  await defaultStorage.set('@jibril-collections', [...collection, collectionName])
 
   // If you add a new collection this collection is should be putted as current?
   await defaultStorage.set('@jibril-current-collection', collectionName)
@@ -93,10 +94,76 @@ const addCollection = async (defaultStorage) => {
   log(`Nice! You are been created the ${chalk.green(collectionName)} collection 😄`)
 }
 
+const finalFhase = 4
+
+const metrics = async (currentStorage) => {
+  const classes = useStyles()
+  const data = await currentStorage.data()
+  const stats = []
+  for (let i = 0; i <= finalFhase; i++) {
+    stats.push({
+      keys: [],
+      count: 0,
+      phase: i
+    })
+  }
+
+  // const hello = await currentStorage.getItem('hello')
+  // await currentStorage.setItem('hello', { ...hello, phase: 2 })
+  // console.log("TCL: metrics -> hello", hello)
+
+  data.forEach(({ value: { phase }, key }) => {
+    let stat = stats[phase]
+    stats[phase] = {
+      ...stat,
+      keys: [...stat.keys, key],
+      count: stat.count + 1
+    }
+  })
+
+  let header = [
+    { alias: "Fase", value: "phase", ...classes.phase },
+    { alias: "Palabras", value: "keys", ...classes.keys },
+    { alias: "Total", value: "count", ...classes.count }
+  ]
+
+  const rows = stats.filter(stat => stat.count > 0)
+
+  const out = Table(header, rows, classes.options).render()
+  console.log(out);
+
+}
+
+const useStyles = () => ({
+  phase: {
+    headerColor: 'magenta',
+    align: 'center',
+    width: 10
+  },
+  keys: {
+    headerColor: "cyan",
+    color: "white",
+    align: "left",
+    width: 30
+  },
+  count: {
+    width: 10
+  },
+  options: {
+    borderStyle: 1,
+    borderColor: "blue",
+    headerAlign: "center",
+    align: "center",
+    color: "white",
+    truncate: "..."
+  }
+})
+
 module.exports = {
   addCollection,
   addWord,
   autoTest,
   deleteWord,
   test,
+  metrics,
 }

@@ -3,7 +3,7 @@
 const program = require('commander')
 
 const { initStorage, getCurrentCollectionStorage } = require('./storage')
-const { addCollection, addWord, deleteWord, autoTest } = require('./actions')
+const { addCollection, addWord, deleteWord, autoTest, metrics } = require('./actions')
 
 program
   .version('0.0.1')
@@ -11,26 +11,33 @@ program
   .option('--add [word] [description]', 'For add a word')
   .option('--delete [word]', 'For delete a word')
   .option('--add-collection [WIP]', 'Flag in progress')
+  .option('--metrics [word]', 'Show table of your progress')
   .parse(process.argv)
 
 
 const init = async () => {
-  const { firstTime, defaultStorage } =  await initStorage()
+  const { firstTime, defaultStorage } = await initStorage()
 
-  if(firstTime) await addCollection(defaultStorage)
+
+  if (firstTime) await addCollection(defaultStorage)
 
   const currentCollectionStorage = await getCurrentCollectionStorage(defaultStorage)
 
-  if(program.add) {
+
+  if (program.add) {
     addWord(currentCollectionStorage)
   }
 
-  if(program.delete) {
+  if (program.delete) {
     deleteWord(currentCollectionStorage)
   }
 
-  if(program.test) {
+  if (program.test) {
     autoTest(currentCollectionStorage)
+  }
+
+  if (program.metrics) {
+    metrics(currentCollectionStorage)
   }
 }
 
