@@ -1,8 +1,12 @@
+import chalk from 'chalk'
+
 import {
   askForAWord,
   askForADescription,
   askForACollectionName
 } from '../questions'
+
+const log = (message) => console.log(`\n ${message}`)
 
 export const addWord = async (currentStorage) => {
   const { word } = await askForAWord()
@@ -11,6 +15,7 @@ export const addWord = async (currentStorage) => {
   await currentStorage.init()
   await currentStorage.set(word, { description, phase: 1 })
 
+  log(`${chalk.green(word)} was added correctly ✨`)
   // return { word, description }
 }
 
@@ -24,19 +29,19 @@ export const test = async (data, currentStorage) => {
   await currentStorage.init()
 
   for (let datum of data) {
-    console.log(`-> ${datum.key}`)
+    log(`📝 ${chalk.underline(datum.key)} \n`)
 
     const { description } = await askForADescription()
 
     if (description === datum.value.description) {
-      console.log('Nice!')
+      log(`${chalk.green('Nice you are right!')} 😎`)
       await currentStorage.set(datum.key, {
         ...datum.value,
         phase: datum.value.phase === 3 ? 3 : datum.value.phase + 1,
         phaseDate: new Date()
       })
     } else {
-      console.log(`You are wrong, the answer is: ${datum.value.description}`)
+      log(`You are wrong, the answer is: ${chalk.magenta(datum.value.description)} 😞`)
       await currentStorage.set(datum.key, { description, phase: 1 })
     }
   }
@@ -65,7 +70,7 @@ export const autoTest = async (storage) => {
   if (data.length) {
     test(data, storage)
   } else {
-    console.log('Wait me a short time, for now u dont have to remember nothing')
+    log(`${chalk.yellow('Wait me a short time, for now u dont have to remember nothing')} 😏`)
   }
 }
 
@@ -76,7 +81,7 @@ export const addCollection = async (defaultStorage) => {
 
   // TODO: Manage multiple errors in name
   if (collection.includes(collectionName)) {
-    console.log(`Oh no! This collection ${collectionName} do exist!, try again`)
+    log(`Oh no! This collection ${chalk.red(collectionName)} do exist! 🤔😳🤔🤔, try again!`)
     return
   }
 
@@ -85,5 +90,5 @@ export const addCollection = async (defaultStorage) => {
   // If you add a new collection this collection is should be putted as current?
   await defaultStorage.set('@jibril-current-collection', collectionName)
 
-  console.log(`Nice! You are been created the ${collectionName} collection`)
+  log(`Nice! You are been created the ${chalk.green(collectionName)} collection 😄`)
 }
