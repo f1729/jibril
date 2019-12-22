@@ -1,6 +1,6 @@
 {
   "name": "jibril",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A CLI for remember things that you want",
   "bin": "src/index.js",
   "main": "src/index.js",
@@ -21,9 +21,9 @@
     "node-persist": "^3.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/preset-env": "^7.7.6"
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7"
   },
   "repository": {
     "type": "git",
