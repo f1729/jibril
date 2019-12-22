@@ -1,8 +1,8 @@
-import Enquirer from 'enquirer'
+const Enquirer = require('enquirer')
 
 const enquirer = new Enquirer()
 
-export const askForADescription = () => {
+const askForADescription = () => {
   return enquirer.prompt([
     {
       name: 'description',
@@ -12,7 +12,7 @@ export const askForADescription = () => {
   ])
 }
 
-export const askForAWord = () => {
+const askForAWord = () => {
   return enquirer.prompt([
     {
       name: 'word',
@@ -22,7 +22,7 @@ export const askForAWord = () => {
   ])
 }
 
-export const askForACollectionName = () => {
+const askForACollectionName = () => {
   return enquirer.prompt([
     {
       name: 'collection',
@@ -32,3 +32,8 @@ export const askForACollectionName = () => {
   ])
 }
 
+module.exports = {
+  askForACollectionName,
+  askForADescription,
+  askForAWord,
+}

@@ -1,14 +1,14 @@
-import chalk from 'chalk'
+const chalk = require('chalk')
 
-import {
+const {
   askForAWord,
   askForADescription,
   askForACollectionName
-} from '../questions'
+} = require('../questions')
 
 const log = (message) => console.log(`\n ${message}`)
 
-export const addWord = async (currentStorage) => {
+const addWord = async (currentStorage) => {
   const { word } = await askForAWord()
   const { description } = await askForADescription()
 
@@ -19,13 +19,13 @@ export const addWord = async (currentStorage) => {
   // return { word, description }
 }
 
-export const deleteWord = async (storage) => {
+const deleteWord = async (storage) => {
   const { word } = await askForAWord()
 
   // return word
 }
 
-export const test = async (data, currentStorage) => {
+const test = async (data, currentStorage) => {
   await currentStorage.init()
 
   for (let datum of data) {
@@ -47,7 +47,7 @@ export const test = async (data, currentStorage) => {
   }
 }
 
-export const autoTest = async (storage) => {
+const autoTest = async (storage) => {
   const getWordsForToday = async (storage) => {
     const items = []
     const data = await storage.data()
@@ -74,7 +74,7 @@ export const autoTest = async (storage) => {
   }
 }
 
-export const addCollection = async (defaultStorage) => {
+const addCollection = async (defaultStorage) => {
   const { collection: collectionName } = await  askForACollectionName()
 
   const collection = await defaultStorage.get('@jibril-collections')
@@ -91,4 +91,12 @@ export const addCollection = async (defaultStorage) => {
   await defaultStorage.set('@jibril-current-collection', collectionName)
 
   log(`Nice! You are been created the ${chalk.green(collectionName)} collection 😄`)
+}
+
+module.exports = {
+  addCollection,
+  addWord,
+  autoTest,
+  deleteWord,
+  test,
 }

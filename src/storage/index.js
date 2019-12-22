@@ -1,4 +1,4 @@
-import storage from 'node-persist'
+const storage = require('node-persist')
 
 const initStorage = async () => {
   const defaultStorage = await makeInstance('./.@jibril-config')
@@ -39,7 +39,7 @@ const searchStorage = async (dir) => {
   return storage
 }
 
-export {
+module.exports = {
   initStorage,
   makeInstance,
   getCurrentCollectionStorage,

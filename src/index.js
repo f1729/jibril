@@ -1,8 +1,7 @@
-import program from 'commander'
+const program = require('commander')
 
-import { initStorage, getCurrentCollectionStorage } from './storage'
-
-import { addCollection, addWord, deleteWord, autoTest } from './actions'
+const { initStorage, getCurrentCollectionStorage } = require('./storage')
+const { addCollection, addWord, deleteWord, autoTest } = require('./actions')
 
 program
   .version('0.0.1')
