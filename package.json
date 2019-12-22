@@ -5,7 +5,8 @@
   "bin": "src/index.js",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src"
   },
   "keywords": [
     "brain-memory",
@@ -18,7 +19,8 @@
     "chalk": "^3.0.0",
     "commander": "^4.0.1",
     "enquirer": "^2.3.2",
-    "node-persist": "^3.0.5"
+    "node-persist": "^3.0.5",
+    "tty-table": "^2.8.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
