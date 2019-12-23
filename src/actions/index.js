@@ -11,15 +11,22 @@ const {
 
 const log = (message) => console.log(`\n ${message}`)
 
+const jibrilMsg = (message) => log(chalk.italic.magenta(message))
+
 const addWord = async (currentStorage) => {
-  const { word } = await askForAWord()
-  const { description } = await askForADescription()
+  try {
+    const {word} = await askForAWord()
+    const {description} = await askForADescription()
 
-  await currentStorage.init()
-  await currentStorage.set(word, { description, phase: 1 })
+    await currentStorage.init()
+    await currentStorage.set(word, {description, phase: 1})
 
-  log(`${chalk.green(word)} was added correctly ✨`)
-  // return { word, description }
+    log(`${chalk.green(word)} was added correctly ✨`)
+
+    // return { word, description }
+  } catch (err) {
+    jibrilMsg('I will ready, when you are ready')
+  }
 }
 
 const deleteWord = async (storage) => {
@@ -29,26 +36,30 @@ const deleteWord = async (storage) => {
 }
 
 const test = async (data, currentStorage) => {
-  await currentStorage.init()
+  try {
+    await currentStorage.init()
 
-  for (let datum of data) {
-    log(`📝 ${chalk.underline(datum.key)} \n`)
+    for (let datum of data) {
+      log(`📝 ${chalk.underline(datum.key)} \n`)
 
-    const { description } = await askForADescription()
+      const {description} = await askForADescription()
 
-    const distance = levenshtein(description, datum.value.description)
+      const distance = levenshtein(description, datum.value.description)
 
-    if (distance <= 30) { // I know, it is very naive, any suggestion?
-      log(`${chalk.green('Nice you are right!')} 😎`)
-      await currentStorage.set(datum.key, {
-        ...datum.value,
-        phase: datum.value.phase === 4 ? 4 : datum.value.phase + 1,
-        phaseDate: new Date()
-      })
-    } else {
-      log(`You are wrong, the answer is: ${chalk.magenta(datum.value.description)} 😞`)
-      await currentStorage.set(datum.key, { description, phase: 1 })
+      if (distance <= 30) { // I know, it is very naive, any suggestion?
+        log(`${chalk.green('Nice you are right!')} 😎`)
+        await currentStorage.set(datum.key, {
+          ...datum.value,
+          phase: datum.value.phase === 4 ? 4 : datum.value.phase + 1,
+          phaseDate: new Date()
+        })
+      } else {
+        log(`You are wrong, the answer is: ${chalk.magenta(datum.value.description)} 😞`)
+        await currentStorage.set(datum.key, {description, phase: 1})
+      }
     }
+  } catch (err) {
+    jibrilMsg('We can try later')
   }
 }
 
@@ -80,22 +91,26 @@ const autoTest = async (storage) => {
 }
 
 const addCollection = async (defaultStorage) => {
-  const { collection: collectionName } = await askForACollectionName()
+  try {
+    const { collection: collectionName } = await askForACollectionName()
 
-  const collection = await defaultStorage.get('@jibril-collections')
+    const collection = await defaultStorage.get('@jibril-collections')
 
-  // TODO: Manage multiple errors in name
-  if (collection.includes(collectionName)) {
-    log(`Oh no! This collection ${chalk.red(collectionName)} do exist! 🤔😳🤔🤔, try again!`)
-    return
+    // TODO: Manage multiple errors in name
+    if (collection.includes(collectionName)) {
+      log(`Oh no! This collection ${chalk.red(collectionName)} do exist! 🤔😳🤔🤔, try again!`)
+      return
+    }
+
+    await defaultStorage.set('@jibril-collections', [...collection, collectionName])
+
+    // If you add a new collection this collection is should be putted as current?
+    await defaultStorage.set('@jibril-current-collection', collectionName)
+
+    log(`Nice! You are been created the ${chalk.green(collectionName)} collection 😄`)
+  } catch (e) {
+    jibrilMsg('Ok ..., bye bye')
   }
-
-  await defaultStorage.set('@jibril-collections', [...collection, collectionName])
-
-  // If you add a new collection this collection is should be putted as current?
-  await defaultStorage.set('@jibril-current-collection', collectionName)
-
-  log(`Nice! You are been created the ${chalk.green(collectionName)} collection 😄`)
 }
 
 const metrics = async (currentStorage) => {
