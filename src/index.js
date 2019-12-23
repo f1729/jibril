@@ -24,24 +24,20 @@ if (process.argv.length === 2) {
   if (firstTime) await addCollection(defaultStorage)
 
   const currentCollectionStorage = await getCurrentCollectionStorage(defaultStorage)
-  try {
-    if (program.add) {
-      return addWord(currentCollectionStorage)
-    }
+  if (program.add) {
+    return addWord(currentCollectionStorage)
+  }
 
-    if (program.delete) {
-      return deleteWord(currentCollectionStorage)
-    }
+  if (program.delete) {
+    return deleteWord(currentCollectionStorage)
+  }
 
-    if (program.test) {
-      return autoTest(currentCollectionStorage)
-    }
+  if (program.test) {
+    return autoTest(currentCollectionStorage)
+  }
 
-    if (program.metrics) {
-      return metrics(currentCollectionStorage)
-    }
-  } catch (err) {
-    console.log('eee')
+  if (program.metrics) {
+    return metrics(currentCollectionStorage)
   }
 })()
 
