@@ -24,6 +24,8 @@ if (process.argv.length === 2) {
   if (firstTime) await addCollection(defaultStorage)
 
   const currentCollectionStorage = await getCurrentCollectionStorage(defaultStorage)
+  await currentCollectionStorage.init()
+
   if (program.add) {
     return addWord(currentCollectionStorage)
   }

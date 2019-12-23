@@ -11,15 +11,14 @@ const {
 
 const log = (message) => console.log(`\n ${message}`)
 
-const jibrilMsg = (message) => log(chalk.italic.magenta(message))
+const jibrilMsg = (message) => log(`${chalk.yellow('Jibril:')} ${chalk.italic.magenta(message)}`)
 
 const addWord = async (currentStorage) => {
   try {
-    const {word} = await askForAWord()
-    const {description} = await askForADescription()
+    const { word } = await askForAWord()
+    const { description } = await askForADescription()
 
-    await currentStorage.init()
-    await currentStorage.set(word, {description, phase: 1})
+    await currentStorage.set(word, { description, phase: 1 })
 
     log(`${chalk.green(word)} was added correctly ✨`)
 
@@ -29,16 +28,16 @@ const addWord = async (currentStorage) => {
   }
 }
 
-const deleteWord = async (storage) => {
+const deleteWord = async (currentStorage) => {
   const { word } = await askForAWord()
 
+  await currentStorage.del(word)
+  jibrilMsg('Done master, I delete this word for you')
   // return word
 }
 
 const test = async (data, currentStorage) => {
   try {
-    await currentStorage.init()
-
     for (let datum of data) {
       log(`📝 ${chalk.underline(datum.key)} \n`)
 
