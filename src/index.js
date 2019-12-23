@@ -3,14 +3,15 @@
 const program = require('commander')
 
 const { initStorage, getCurrentCollectionStorage } = require('./storage')
-const { addCollection, addWord, deleteWord, autoTest, metrics } = require('./actions')
+const { addCollection, addWord, deleteWord, autoTest, metrics, changeCollection } = require('./actions')
 
 program
   .version('0.0.1')
   .option('--test [?collection]', 'Test your memory')
   .option('--add', 'For add a word')
   .option('--delete [word]', 'For delete a word')
-  .option('--add-collection [WIP]', 'Flag in progress')
+  .option('--add-collection', 'Add collection')
+  .option('--change-collection', 'Change between collections')
   .option('--metrics', 'Show a table of your progress')
   .parse(process.argv)
 
@@ -40,6 +41,14 @@ if (process.argv.length === 2) {
 
   if (program.metrics) {
     return metrics(currentCollectionStorage)
+  }
+
+  if (program.addCollection) {
+    return addCollection(defaultStorage)
+  }
+
+  if (program.changeCollection) {
+    return changeCollection(defaultStorage)
   }
 })()
 

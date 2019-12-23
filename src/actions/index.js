@@ -4,9 +4,17 @@ const chalk = require('chalk')
 const Table = require('tty-table')
 
 const {
+  addNewCollection,
+  changeCurrentCollection,
+  existInCollection,
+  getCollections
+} = require('../storage')
+
+const {
   askForAWord,
   askForADescription,
-  askForACollectionName
+  askForACollectionName,
+  askForSelectCollection,
 } = require('../questions')
 
 const log = (message) => console.log(`\n ${message}`)
@@ -97,22 +105,33 @@ const addCollection = async (defaultStorage) => {
   try {
     const { collection: collectionName } = await askForACollectionName()
 
-    const collection = await defaultStorage.get('@jibril-collections')
+    const collections = await existInCollection(defaultStorage, collectionName)
 
     // TODO: Manage multiple errors in name
-    if (collection.includes(collectionName)) {
-      jibrilMsg(`Oh no master! This collection ${chalk.red(collectionName)} do exist! 🤔😳🤔🤔, try again!`)
+    if (collections === true) {
+      jibrilMsg(`Oh no master! This collection ${chalk.red(collectionName)} do exist! 😳🤔, try again!`)
       return
     }
 
-    await defaultStorage.set('@jibril-collections', [...collection, collectionName])
-
-    // If you add a new collection this collection is should be putted as current?
-    await defaultStorage.set('@jibril-current-collection', collectionName)
+    await addNewCollection(collectionName)
 
     jibrilMsg(`Nice master! I add the ${chalk.green(collectionName)} collection for you 😄`)
   } catch (e) {
     jibrilMsg('Ok ..., bye bye')
+  }
+}
+
+const changeCollection = async (defaultStorage) => {
+  try {
+    const collections = await getCollections(defaultStorage)
+
+    const { collection : collectionName } = await askForSelectCollection(collections)
+
+    await changeCurrentCollection(defaultStorage, collectionName)
+
+    jibrilMsg(`I changed collection for you`)
+  } catch (e) {
+    jibrilMsg(`When you want master!`)
   }
 }
 
@@ -180,6 +199,7 @@ module.exports = {
   addCollection,
   addWord,
   autoTest,
+  changeCollection,
   deleteWord,
   test,
   metrics,

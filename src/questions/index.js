@@ -32,8 +32,20 @@ const askForACollectionName = () => {
   ])
 }
 
+const askForSelectCollection = (list) => {
+  return enquirer.prompt([
+    {
+      type: 'select',
+      name: 'collection',
+      message: 'Select your collection',
+      choices: list
+    }
+  ])
+}
+
 module.exports = {
   askForACollectionName,
   askForADescription,
   askForAWord,
+  askForSelectCollection,
 }

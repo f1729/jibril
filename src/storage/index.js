@@ -33,8 +33,33 @@ const searchStorage = async (dir) => {
   return storage
 }
 
+const getCollections = (defaultStorage) => {
+  return defaultStorage.get('@jibril-collections')
+}
+
+
+const existInCollection = async (defaultStorage, collection) => {
+  const collections = await getCollections(defaultStorage)
+
+  return collections.includes(collection) ? true : collections
+}
+
+const addNewCollection = async (defaultStorage, collection) => {
+  await defaultStorage.set('@jibril-collections', [ ...collections, collection ])
+  await changeCurrentCollection(defaultStorage, collection)
+}
+
+const changeCurrentCollection = async (defaultStorage, collection) => {
+  await defaultStorage.set('@jibril-current-collection', collection)
+}
+
+
 module.exports = {
+  addNewCollection,
+  changeCurrentCollection,
   initStorage,
   makeInstance,
+  getCollections,
   getCurrentCollectionStorage,
+  existInCollection,
 }
