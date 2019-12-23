@@ -29,11 +29,15 @@ const addWord = async (currentStorage) => {
 }
 
 const deleteWord = async (currentStorage) => {
-  const { word } = await askForAWord()
+  try {
+    const { word } = await askForAWord()
 
-  await currentStorage.del(word)
-  jibrilMsg('Done master, I delete this word for you')
-  // return word
+    await currentStorage.del(word)
+    jibrilMsg('Done master, I delete this word for you')
+    // return word
+  } catch (e) {
+    jibrilMsg('No problem, I do not delete nothing')
+  }
 }
 
 const test = async (data, currentStorage) => {
@@ -85,7 +89,7 @@ const autoTest = async (storage) => {
   if (data.length) {
     test(data, storage)
   } else {
-    log(`${chalk.magenta('Jibril:')} ${chalk.yellow('Wait me a short time, for now u dont have to remember nothing')} 😏`)
+    jibrilMsg('Wait me a short time, for now u dont have to remember nothing 😏')
   }
 }
 
@@ -97,7 +101,7 @@ const addCollection = async (defaultStorage) => {
 
     // TODO: Manage multiple errors in name
     if (collection.includes(collectionName)) {
-      log(`Oh no! This collection ${chalk.red(collectionName)} do exist! 🤔😳🤔🤔, try again!`)
+      jibrilMsg(`Oh no master! This collection ${chalk.red(collectionName)} do exist! 🤔😳🤔🤔, try again!`)
       return
     }
 
@@ -106,7 +110,7 @@ const addCollection = async (defaultStorage) => {
     // If you add a new collection this collection is should be putted as current?
     await defaultStorage.set('@jibril-current-collection', collectionName)
 
-    log(`Nice! You are been created the ${chalk.green(collectionName)} collection 😄`)
+    jibrilMsg(`Nice master! I add the ${chalk.green(collectionName)} collection for you 😄`)
   } catch (e) {
     jibrilMsg('Ok ..., bye bye')
   }
