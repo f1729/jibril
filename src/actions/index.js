@@ -38,7 +38,7 @@ const test = async (data, currentStorage) => {
       log(`${chalk.green('Nice you are right!')} 😎`)
       await currentStorage.set(datum.key, {
         ...datum.value,
-        phase: datum.value.phase === 3 ? 3 : datum.value.phase + 1,
+        phase: datum.value.phase === 4 ? 4 : datum.value.phase + 1,
         phaseDate: new Date()
       })
     } else {
@@ -71,7 +71,7 @@ const autoTest = async (storage) => {
   if (data.length) {
     test(data, storage)
   } else {
-    log(`${chalk.yellow('Wait me a short time, for now u dont have to remember nothing')} 😏`)
+    log(`${chalk.magenta('Jibril:')} ${chalk.yellow('Wait me a short time, for now u dont have to remember nothing')} 😏`)
   }
 }
 
@@ -94,23 +94,44 @@ const addCollection = async (defaultStorage) => {
   log(`Nice! You are been created the ${chalk.green(collectionName)} collection 😄`)
 }
 
-const finalFhase = 4
-
 const metrics = async (currentStorage) => {
+  const finalPhase = 4
+  const useStyles = () => ({
+    phase: {
+      headerColor: 'magenta',
+      align: 'center',
+      width: 10
+    },
+    keys: {
+      headerColor: "cyan",
+      color: "white",
+      align: "left",
+      width: 30
+    },
+    count: {
+      width: 10
+    },
+    options: {
+      borderStyle: 1,
+      borderColor: "blue",
+      headerAlign: "center",
+      align: "center",
+      color: "white",
+      // truncate: "..."
+    }
+  })
+
   const classes = useStyles()
   const data = await currentStorage.data()
   const stats = []
-  for (let i = 0; i <= finalFhase; i++) {
+
+  for (let i = 0; i <= finalPhase; i++) {
     stats.push({
       keys: [],
       count: 0,
       phase: i
     })
   }
-
-  // const hello = await currentStorage.getItem('hello')
-  // await currentStorage.setItem('hello', { ...hello, phase: 2 })
-  // console.log("TCL: metrics -> hello", hello)
 
   data.forEach(({ value: { phase }, key }) => {
     let stat = stats[phase]
@@ -122,42 +143,16 @@ const metrics = async (currentStorage) => {
   })
 
   let header = [
-    { alias: "Fase", value: "phase", ...classes.phase },
-    { alias: "Palabras", value: "keys", ...classes.keys },
+    { alias: "Phase", value: "phase", ...classes.phase },
+    { alias: "Words", value: "keys", ...classes.keys },
     { alias: "Total", value: "count", ...classes.count }
   ]
 
   const rows = stats.filter(stat => stat.count > 0)
 
-  const out = Table(header, rows, classes.options).render()
-  console.log(out);
-
+  log(Table(header, rows, classes.options).render())
 }
 
-const useStyles = () => ({
-  phase: {
-    headerColor: 'magenta',
-    align: 'center',
-    width: 10
-  },
-  keys: {
-    headerColor: "cyan",
-    color: "white",
-    align: "left",
-    width: 30
-  },
-  count: {
-    width: 10
-  },
-  options: {
-    borderStyle: 1,
-    borderColor: "blue",
-    headerAlign: "center",
-    align: "center",
-    color: "white",
-    truncate: "..."
-  }
-})
 
 module.exports = {
   addCollection,

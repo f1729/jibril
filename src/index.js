@@ -11,7 +11,7 @@ program
   .option('--add [word] [description]', 'For add a word')
   .option('--delete [word]', 'For delete a word')
   .option('--add-collection [WIP]', 'Flag in progress')
-  .option('--metrics [word]', 'Show table of your progress')
+  .option('--metrics', 'Show a table of your progress')
   .parse(process.argv)
 
 
