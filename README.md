@@ -14,5 +14,8 @@
 
 `jibril --test` For init test
 
+`jibril --metrics` For show a table with word's phases
+
+
 Modify your `.zshrc` file and write in the end `jibril --test`, if you want jibril to inspect if you have anything to remember every time you open the terminal.
 
