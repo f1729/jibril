@@ -17,7 +17,6 @@ const initStorage = async () => {
   } catch (e) {
     console.log(e)
   }
-
 }
 
 const getCurrentCollectionStorage = async (defaultStorage) => {

@@ -14,15 +14,12 @@ program
   .option('--metrics', 'Show a table of your progress')
   .parse(process.argv)
 
-
-const init = async () => {
+;(async () => {
   const { firstTime, defaultStorage } = await initStorage()
-
 
   if (firstTime) await addCollection(defaultStorage)
 
   const currentCollectionStorage = await getCurrentCollectionStorage(defaultStorage)
-
 
   if (program.add) {
     addWord(currentCollectionStorage)
@@ -39,6 +36,5 @@ const init = async () => {
   if (program.metrics) {
     metrics(currentCollectionStorage)
   }
-}
+})()
 
-init()

@@ -1,3 +1,5 @@
+const levenshtein = require('node-levenshtein')
+
 const chalk = require('chalk')
 const Table = require('tty-table')
 
@@ -34,7 +36,9 @@ const test = async (data, currentStorage) => {
 
     const { description } = await askForADescription()
 
-    if (description === datum.value.description) {
+    const distance = levenshtein(description, datum.value.description)
+
+    if (distance <= 30) { // I know, it is very naive, any suggestion?
       log(`${chalk.green('Nice you are right!')} 😎`)
       await currentStorage.set(datum.key, {
         ...datum.value,
