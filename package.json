@@ -1,6 +1,6 @@
 {
   "name": "jibril",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A CLI for remember things that you want",
   "bin": "src/index.js",
   "main": "src/index.js",
@@ -19,7 +19,7 @@
     "chalk": "^3.0.0",
     "commander": "^4.0.1",
     "enquirer": "^2.3.2",
-    "node-levenshtein": "^2.0.13",
+    "js-levenshtein": "^1.1.6",
     "node-persist": "^3.0.5",
     "tty-table": "^2.8.3"
   },

@@ -1,4 +1,4 @@
-const levenshtein = require('node-levenshtein')
+const levenshtein = require('js-levenshtein')
 
 const chalk = require('chalk')
 const Table = require('tty-table')
