@@ -681,6 +681,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@pacote/shuffle@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@pacote/shuffle/-/shuffle-1.0.2.tgz#02a5a8956c08cd79e87122a467601a93b9d30393"
+  integrity sha512-G/dyz7pT/8d7nZwYp7XUKA1u4aoHKDGNGvbmOvBFk4XFe5QGxQSciNOm8mCDadDNmpwWDv7LYECI/L+6ScaXew==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"

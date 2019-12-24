@@ -3,6 +3,8 @@ const levenshtein = require('js-levenshtein')
 const chalk = require('chalk')
 const Table = require('tty-table')
 
+const { getWordsForToday, getRandomWords } = require('../utils')
+
 const {
   addNewCollection,
   changeCurrentCollection,
@@ -48,7 +50,7 @@ const deleteWord = async (currentStorage) => {
   }
 }
 
-const test = async (data, currentStorage) => {
+const test = async (currentStorage, data, isReview) => {
   try {
     for (let datum of data) {
       log(`📝 ${chalk.underline(datum.key)} \n`)
@@ -59,6 +61,8 @@ const test = async (data, currentStorage) => {
 
       if (distance <= 30) { // I know, it is very naive, any suggestion?
         log(`${chalk.green('Nice you are right!')} 😎`)
+
+        !isReview &&
         await currentStorage.set(datum.key, {
           ...datum.value,
           phase: datum.value.phase === 4 ? 4 : datum.value.phase + 1,
@@ -66,6 +70,8 @@ const test = async (data, currentStorage) => {
         })
       } else {
         log(`You are wrong, the answer is: ${chalk.magenta(datum.value.description)} 😞`)
+
+        !isReview &&
         await currentStorage.set(datum.key, {description, phase: 1})
       }
     }
@@ -75,27 +81,10 @@ const test = async (data, currentStorage) => {
 }
 
 const autoTest = async (storage) => {
-  const getWordsForToday = async (storage) => {
-    const items = []
-    const data = await storage.data()
-
-    const weeksUntilNow = (date) => Math.round((new Date() - date) / 604800000)
-
-    for (let i of data) {
-      const weeks = weeksUntilNow(i.value.phaseDate)
-
-      if (weeks === i.value.phase || i.value.phase === 1) {
-        items.push(i)
-      }
-    }
-
-    return items
-  }
-
   const data = await getWordsForToday(storage)
 
   if (data.length) {
-    test(data, storage)
+    test(storage, data)
   } else {
     jibrilMsg('Wait me a short time, for now u dont have to remember nothing 😏')
   }
@@ -119,6 +108,12 @@ const addCollection = async (defaultStorage) => {
   } catch (e) {
     jibrilMsg('Ok ..., bye bye')
   }
+}
+
+const review = async (currentStorage) => {
+  const data = await getRandomWords(currentStorage)
+
+  test(currentStorage, data, true)
 }
 
 const changeCollection = async (defaultStorage) => {
@@ -203,4 +198,5 @@ module.exports = {
   deleteWord,
   test,
   metrics,
+  review,
 }

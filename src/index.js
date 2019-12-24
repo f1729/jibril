@@ -3,7 +3,7 @@
 const program = require('commander')
 
 const { initStorage, getCurrentCollectionStorage } = require('./storage')
-const { addCollection, addWord, deleteWord, autoTest, metrics, changeCollection } = require('./actions')
+const { addCollection, addWord, deleteWord, autoTest, metrics, changeCollection, review } = require('./actions')
 
 program
   .version('0.0.1')
@@ -13,6 +13,7 @@ program
   .option('--add-collection', 'Add collection')
   .option('--change-collection', 'Change between collections')
   .option('--metrics', 'Show a table of your progress')
+  .option('--review', 'Let\'s check your memory!')
   .parse(process.argv)
 
 if (process.argv.length === 2) {
@@ -50,5 +51,10 @@ if (process.argv.length === 2) {
   if (program.changeCollection) {
     return changeCollection(defaultStorage)
   }
+
+  if (program.review) {
+    return review(currentCollectionStorage)
+  }
+
 })()
 
