@@ -3,7 +3,7 @@ const levenshtein = require('js-levenshtein')
 const chalk = require('chalk')
 const Table = require('tty-table')
 
-const { getWordsForToday, getRandomWords } = require('../utils')
+const { getWordsForToday, getRandomWords, enoughDistance } = require('../utils')
 
 const {
   addNewCollection,
@@ -59,7 +59,7 @@ const test = async (currentStorage, data, isReview) => {
 
       const distance = levenshtein(description, datum.value.description)
 
-      if (distance <= 30) { // I know, it is very naive, any suggestion?
+      if (distance <= enoughDistance(datum.value.description)) { // I know, it is very naive, any suggestion?
         log(`${chalk.green('Nice you are right!')} 😎`)
 
         !isReview &&
