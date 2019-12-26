@@ -1,6 +1,6 @@
 {
   "name": "jibril",
-  "version": "0.1.5",
+  "version": "0.1.9",
   "description": "A CLI for remember things that you want",
   "bin": "src/index.js",
   "main": "src/index.js",
