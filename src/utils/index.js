@@ -1,8 +1,14 @@
+const levenshtein = require('js-levenshtein')
 const { shuffle } = require('@pacote/shuffle')
 
 const weeksUntilNow = (date) => Math.round((new Date() - date) / 604800000)
 
-const enoughDistance = (description) => description.length - Math.round(description.length / 100 * 73)
+const areEquivalents = (realDescription, currentDescription) => {
+  const distance = levenshtein(realDescription, currentDescription)
+  const diffPercent = Math.round(currentDescription.length / 100 * 27)
+
+  return distance <= diffPercent
+}
 
 const getWordsForToday = async (storage) => {
   const items = []
@@ -25,7 +31,7 @@ const getRandomWords = async (storage) => {
 }
 
 module.exports = {
-  enoughDistance,
+  areEquivalents,
   getWordsForToday,
   getRandomWords,
 }
