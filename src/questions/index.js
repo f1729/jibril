@@ -5,9 +5,9 @@ const enquirer = new Enquirer()
 const askForADescription = () => {
   return enquirer.prompt([
     {
+      type: 'input',
       name: 'description',
-      message: 'Insert word\'s description: ',
-      type: 'input'
+      message: 'Insert word\'s description: '
     }
   ])
 }
@@ -15,9 +15,9 @@ const askForADescription = () => {
 const askForAWord = () => {
   return enquirer.prompt([
     {
+      type: 'input',
       name: 'word',
-      message: 'Insert your word: ',
-      type: 'input'
+      message: 'Insert your word: '
     }
   ])
 }
@@ -25,9 +25,9 @@ const askForAWord = () => {
 const askForACollectionName = () => {
   return enquirer.prompt([
     {
+      type: 'input',
       name: 'collection',
-      message: 'Insert a name for your collection: ',
-      type: 'input'
+      message: 'Insert a name for your collection: '
     }
   ])
 }
@@ -43,9 +43,22 @@ const askForSelectCollection = (list) => {
   ])
 }
 
+const askIfYouWantToDoTest = () => {
+  return enquirer.prompt([
+    {
+      type: 'toggle',
+      name: 'answer',
+      message: 'Do you want to answer now?',
+      enable: 'Yes~!',
+      disable: 'No',
+    }
+  ])
+}
+
 module.exports = {
   askForACollectionName,
   askForADescription,
   askForAWord,
   askForSelectCollection,
+  askIfYouWantToDoTest,
 }

@@ -7,7 +7,7 @@ const { addCollection, addWord, deleteWord, autoTest, metrics, changeCollection,
 
 program
   .version('0.0.1')
-  .option('--test [?collection]', 'Test your memory')
+  .option('--test', 'Auto test in current collection')
   .option('--add', 'For add a word')
   .option('--delete [word]', 'For delete a word')
   .option('--add-collection', 'Add collection')

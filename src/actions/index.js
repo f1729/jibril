@@ -17,6 +17,7 @@ const {
   askForADescription,
   askForACollectionName,
   askForSelectCollection,
+  askIfYouWantToDoTest,
 } = require('../questions')
 
 const log = (message) => console.log(`\n ${message}`)
@@ -55,7 +56,7 @@ const test = async (currentStorage, data, isReview) => {
     for (let datum of data) {
       log(`📝 ${chalk.underline(datum.key)} \n`)
 
-      const {description} = await askForADescription()
+      const { description } = await askForADescription()
 
       const distance = levenshtein(description, datum.value.description)
 
@@ -82,9 +83,11 @@ const test = async (currentStorage, data, isReview) => {
 
 const autoTest = async (storage) => {
   const data = await getWordsForToday(storage)
-
+  
   if (data.length) {
-    test(storage, data)
+    const { answer } = await askIfYouWantToDoTest()
+
+    answer && test(storage, data)
   } else {
     jibrilMsg('Wait me a short time, for now u dont have to remember nothing 😏')
   }
