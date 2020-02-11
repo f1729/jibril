@@ -24,11 +24,6 @@
     "node-persist": "^3.0.5",
     "tty-table": "^2.8.3"
   },
-  "devDependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/f1729/jibril.git"
