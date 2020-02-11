@@ -4,6 +4,7 @@ const program = require('commander')
 
 const { initStorage, getCurrentCollectionStorage } = require('./storage')
 const { addCollection, addWord, deleteWord, autoTest, metrics, changeCollection, review } = require('./actions')
+const { askForACollectionName } = require('./questions')
 
 program
   .version('0.0.1')
@@ -45,7 +46,9 @@ if (process.argv.length === 2) {
   }
 
   if (program.addCollection) {
-    return addCollection(defaultStorage)
+    const { collection: collectionName } = await askForACollectionName()
+    
+    return addCollection(defaultStorage, collectionName)
   }
 
   if (program.changeCollection) {
