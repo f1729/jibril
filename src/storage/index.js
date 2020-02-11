@@ -17,7 +17,7 @@ const initStorage = async () => {
 const getCurrentCollectionStorage = async (defaultStorage) => {
   const currentCollection = await defaultStorage.get('@jibril-current-collection')
 
-  return await makeInstance(`./.@jibril-collection-${currentCollection}`).init()
+  return await makeInstance(`./.@jibril-collection-${currentCollection}`)
 }
 
 const makeInstance = async (dir) => {
