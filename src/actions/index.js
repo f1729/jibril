@@ -56,7 +56,7 @@ const test = async (currentStorage, data, isReview) => {
 
       const { description } = await askForADescription()
 
-      if (areEquivalents(datum.value.description, description)) { // I know, it is very naive, any suggestion?
+      if (areEquivalents(datum.value.description, description)) {
         log(`${chalk.green('Nice you are right!')} 😎`)
 
         !isReview &&
@@ -89,10 +89,8 @@ const autoTest = async (storage) => {
   }
 }
 
-const addCollection = async (defaultStorage) => {
+const addCollection = async (defaultStorage, collectionName) => {
   try {
-    const { collection: collectionName } = await askForACollectionName()
-
     const collections = await existInCollection(defaultStorage, collectionName)
 
     // TODO: Manage multiple errors in name
