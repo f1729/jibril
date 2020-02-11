@@ -24,10 +24,9 @@ if (process.argv.length === 2) {
 ;(async () => {
   const { firstTime, defaultStorage } = await initStorage()
 
-  if (firstTime) await addCollection(defaultStorage)
+  if (firstTime) await addCollection(defaultStorage, 'default')
 
   const currentCollectionStorage = await getCurrentCollectionStorage(defaultStorage)
-  await currentCollectionStorage.init()
 
   if (program.add) {
     return addWord(currentCollectionStorage)
