@@ -136,9 +136,9 @@ const metrics = async (currentStorage) => {
       width: 10
     },
     keys: {
-      headerColor: "cyan",
-      color: "white",
-      align: "left",
+      headerColor: 'cyan',
+      color: 'white',
+      align: 'left',
       width: 30
     },
     count: {
@@ -146,10 +146,10 @@ const metrics = async (currentStorage) => {
     },
     options: {
       borderStyle: 1,
-      borderColor: "blue",
-      headerAlign: "center",
-      align: "center",
-      color: "white",
+      borderColor: 'blue',
+      headerAlign: 'center',
+      align: 'center',
+      color: 'white',
       // truncate: "..."
     }
   })
