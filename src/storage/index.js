@@ -1,7 +1,7 @@
 const storage = require('node-persist')
 
 const initStorage = async () => {
-  const defaultStorage = await makeInstance('./.@jibril-config')
+  const defaultStorage = await makeInstance('/.@jibril-config')
     const config = await defaultStorage.values()
 
     if(!config.length) {
