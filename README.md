@@ -4,21 +4,21 @@
 
 
 
-> Jibril CLI helps you to improve your memory about a word and it concept. Jibril was construct with a technique for improve you long-term memory.
+> Jibril CLI helps you to improve your memory about a word and their concept. Jibril was constructed with a technique to improve you long-term memory.
 
 ## How works?
 
-- Open your terminal and tell: 
+- Open your terminal and put: 
   `$ jibril --add`
 
-- You add a word, and then the concept of this word.
+- You can add a word and then the concept of this word.
 
 - This word will have 4 phases: 
-  - In the first phase the word will asked daily, if you respond correctly it pass to phase 2.
-  - In the second phase the word will asked weekly, if you respond correctly it pass to phase 3.
-  - In the thrid phase the word will asked each 3 weeks, if you respond correctly it pass to pase 4.
+  - In the first phase the word will be asked daily, if you respond correctly it will pass to phase 2.
+  - In the second phase the word will be asked weekly, if you respond correctly it will pass to phase 3.
+  - In the thrid phase the word will be asked each 3 weeks, if you respond correctly it will pass to pase 4.
 
-- If you respond incorrectly some word, it pass to phase 1.
+- If you respond incorrectly some word in any of this phases, it will return to phase 1.
 
 
 ## Install
