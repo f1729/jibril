@@ -4,8 +4,7 @@
 
 
 
-> Jibril CLI helps you to improve your memory about a word and their concept. 
-  Jibril was constructed with a technique to improve you long-term memory.
+> Jibril CLI helps you to improve your long-term memory of a word with their concept.
 
 ## How it works?
 
