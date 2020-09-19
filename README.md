@@ -16,7 +16,7 @@
 - This word will have 4 phases: 
   - In the first phase the word will be asked *daily*, if you respond correctly it will pass to phase 2.
   - In the second phase the word will be asked *weekly*, if you respond correctly it will pass to phase 3.
-  - In the thrid phase the word will be asked *each 3 weeks*, if you respond correctly it will pass to phase 4.
+  - In the thrid phase the word will be asked *every 3 weeks*, if you respond correctly it will pass to phase 4.
 
 - If you respond incorrectly some word in any of this phases, it will return to *phase 1*.
 
