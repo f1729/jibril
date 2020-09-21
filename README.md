@@ -18,7 +18,7 @@
   - In the second phase the word will be asked *weekly*, if you respond correctly it will pass to phase 3.
   - In the thrid phase the word will be asked *every 3 weeks*, if you respond correctly it will pass to phase 4.
 
-- If you respond incorrectly some word in any of this phases, it will return to *phase 1*.
+- If you answer incorrectly some word in any of this phases, it will return to *phase 1*.
 
 
 ## Install
