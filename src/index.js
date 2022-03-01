@@ -46,7 +46,7 @@ if (process.argv.length === 2) {
 
   if (program.addCollection) {
     const { collection: collectionName } = await askForACollectionName()
-    
+
     return addCollection(defaultStorage, collectionName)
   }
 

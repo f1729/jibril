@@ -42,7 +42,7 @@ const deleteWord = async (currentStorage) => {
     const { word } = await askForAWord()
 
     await currentStorage.del(word)
-    jibrilMsg('Done master, I delete this word for you')
+    jibrilMsg('Done master, I removed this word for you')
     // return word
   } catch (e) {
     jibrilMsg('No problem, I do not delete nothing')

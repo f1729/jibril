@@ -1,17 +1,17 @@
 const storage = require('node-persist')
 
 const initStorage = async () => {
-  const defaultStorage = await makeInstance('/.@jibril-config')
-    const config = await defaultStorage.values()
+  const defaultStorage = await makeInstance('./.@jibril-config')
+  const config = await defaultStorage.values()
 
-    if(!config.length) {
-      await defaultStorage.set('@jibril-login', true)
-      await defaultStorage.set('@jibril-collections', [])
+  if (!config.length) {
+    await defaultStorage.set('@jibril-login', true)
+    await defaultStorage.set('@jibril-collections', [])
 
-      return { firstTime: true, defaultStorage }
-    }
+    return { firstTime: true, defaultStorage }
+  }
 
-    return { firstTime: false, defaultStorage }
+  return { firstTime: false, defaultStorage }
 }
 
 const getCurrentCollectionStorage = async (defaultStorage) => {
