@@ -49,7 +49,7 @@ const askIfYouWantToDoTest = () => {
       type: 'toggle',
       name: 'answer',
       message: 'Do you want to answer now?',
-      enable: 'Yes!',
+      enable: 'Yes',
       disable: 'No',
     }
   ])
