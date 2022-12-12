@@ -53,7 +53,6 @@ const changeCurrentCollection = async (defaultStorage, collection) => {
   await defaultStorage.set('@jibril-current-collection', collection)
 }
 
-
 module.exports = {
   addNewCollection,
   changeCurrentCollection,
