@@ -2,7 +2,7 @@
 /.node-persist
 /.@jibril*
 /.idea
-
+/dist
 # Logs
 logs
 *.log
@@ -10,6 +10,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+.DS_Store
 # Runtime data
 pids
 *.pid

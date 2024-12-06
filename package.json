@@ -2,11 +2,16 @@
   "name": "jibril",
   "version": "0.1.11",
   "description": "A CLI for remember things that you want",
-  "bin": "src/index.js",
-  "main": "src/index.js",
+  "bin": {
+    "jibril": "./dist/index.js"
+  },
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src"
+    "build": "tsc",
+    "dev": "tsc -w",
+    "start": "node dist",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "brain-memory",
@@ -21,7 +26,7 @@
     "commander": "^4.1.1",
     "enquirer": "^2.3.6",
     "js-levenshtein": "^1.1.6",
-    "node-persist": "^3.1.0",
+    "node-persist": "4.0.3",
     "tty-table": "^2.8.13"
   },
   "repository": {
@@ -31,5 +36,11 @@
   "bugs": {
     "url": "https://github.com/f1729/jibril/issues"
   },
-  "homepage": "https://github.com/f1729/jibril#readme"
+  "homepage": "https://github.com/f1729/jibril#readme",
+  "devDependencies": {
+    "@types/js-levenshtein": "^1.1.3",
+    "@types/node": "^22.10.1",
+    "@types/node-persist": "^3.1.8",
+    "typescript": "^5.7.2"
+  }
 }
